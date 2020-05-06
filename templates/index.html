@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Online Cv Generator</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron" style="padding: 1rem 2rem;">
+        <h1 class="display-4 text-center">Online Cv Generator</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">İsim</th>
+                    <th scope="col">İşlemler</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if hesaplar %}
+                    {% for hesap in hesaplar %}
+                        <tr>
+                            <th scope="row">{{ hesap }}</th>
+                            <td>
+                                <a href="{% url 'goster' pk=hesap.pk %}">
+                                    <button class="btn btn-info btn-sm">Göster</button>
+                                </a>
+                                <a href="{% url 'cv' pk=hesap.pk %}">
+                                    <button class="btn btn-success btn-sm">İndir</button>
+                                </a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>Henüz hesap oluşturulmadı</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <form action="{% url 'kayit' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Resim</label>
+                    <input type="file" class="form-control-file" name="resim">
+                </div>
+                <div class="form-group">
+                    <label>İsim</label>
+                    <input type="text" class="form-control" name="isim" id="exampleInputEmail1"
+                           aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail1"
+                           aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input type="text" class="form-control" name="telefon" id="exampleInputEmail1"
+                           aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label>Ünvan</label>
+                    <input type="text" class="form-control" name="unvan" id="exampleInputEmail1"
+                           aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label>Özet Bilgi</label>
+                    <textarea class="form-control" name="ozet" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Oluştur</button>
+                <small id="emailHelp" class="form-text text-muted">Bilgileriniz üçüncü şahıs kişiler ile
+                    paylaşılmayacaktır</small>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
